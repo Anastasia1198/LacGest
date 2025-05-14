@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LacGest - Танцевальная студия</title>
+    <style>
+        /* Общие стили */
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #d4d4d4;
+        }
+
+        h2,
+        h3 {
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        h2 {
+            font-size: 36px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #d35400;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: #d35400;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #e67e22;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #d35400;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background: #e67e22;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background: #222;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo span {
+            color: #e67e22;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e67e22;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Герой */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(image/a.png);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+        }
+
+        /* О нас */
+        .about {
+            background-color: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* История танцев */
+        .history {
+            background-color: #f8f8f8;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: #d35400;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 3px solid #d35400;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+            text-align: right;
+        }
+
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+
+        .left::after {
+            right: -10px;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+        }
+
+        /* Направления */
+        .styles {
+            background-color: white;
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .style-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .style-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .style-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .style-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .style-card-content {
+            padding: 25px;
+        }
+
+        .style-card h3 {
+            color: #d35400;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #d35400;
+            outline: none;
+        }
+
+        /* Подвал */
+        footer {
+            background: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 25px;
+            color: #e67e22;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #e67e22;
+        }
+
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .left::after,
+            .right::after {
+                left: 21px;
+            }
+
+            .left,
+            .right {
+                left: 0;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: #222;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">LacGest</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#history">История танцев</a></li>
+                    <li><a href="#styles">Направления</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главная -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Откройте мир танца с LacGest</h1>
+                <p>Она известна своим уникальным подходом к обучению танцам, сочетающим элементы различных направлений
+                    современной хореографии, таких как contemporary dance, модерн, джаз-фанк и другие стили.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>О нашей студии</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Студию основали профессиональные хореографы и педагоги, объединившие богатый опыт выступлений и
+                        обучения в крупнейших столичных центрах танца. Идея создать собственное пространство возникла
+                        благодаря желанию привнести инновационные подходы в обучение современным направлениям
+                        хореографии, сделать танец доступным для всех желающих и стимулировать интерес к искусству
+                        современных форм движения.</p>
+                    <p>Важнейшей частью жизни LacGest являются творческие проекты и выступления. Мы регулярно
+                        принимает участие в крупных московских событиях, таких как фестивали современного танца,
+                        концерты и показательные выступления. Многие ученики становятся участниками престижных шоу и
+                        проектов, демонстрируют свою работу на сценах ведущих театров города.</p>
+                    <p>Особое внимание в LacGest уделяют созданию творческой атмосферы, поддерживающей свободное
+                        выражение личности и индивидуальности каждого участника. Здесь приветствуют смелость
+                        экспериментов, искренность и открытость к новым идеям. Каждый ученик получает возможность
+                        раскрыть собственный творческий потенциал и обрести уверенность в себе.</p>
+                </div>
+                <div class="about-image">
+                    <img src="image/b.phg.jpg" alt="Танцевальная студия">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="history" class="history">
+        <div class="container">
+            <h2>История танцев</h2>
+
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Древний мир</h3>
+                        <p>Первые проявления танца возникли в эпоху палеолита примерно 40 тысяч лет назад.
+                            Археологические находки свидетельствуют, что танцы были неотъемлемой частью магических
+                            ритуалов охотников и собирателей. Люди использовали ритм и движения для привлечения удачи в
+                            охоте, плодородия земли, защиты от болезней и врагов. Обряды сопровождались коллективными
+                            движениями вокруг костра, повторяли сюжеты охоты или природных явлений.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Средние века</h3>
+                        <p>В эпоху Средневековья (V–XV вв.) в Европе широкое распространение получили различные формы
+                            народного танца, такие как карола, эстампида, фарсута и др., исполняемые крестьянами во
+                            время праздников и ярмарок. Однако церковь нередко осуждала танцы, считая их проявлением
+                            греха и соблазна. Тем временем при европейских королевских дворах начали появляться
+                            простейшие бальные танцы — павана, гальярда, сарабанда, предназначенные исключительно для
+                            элиты общества.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Эпоха Возрождения</h3>
+                        <p>В XV–XVI веках европейская культура переживает ренессанс, способствующий появлению новых
+                            жанров и видов искусства. Наряду с живописью и архитектурой развивается и балет, постепенно
+                            выделяющийся в самостоятельный жанр. Итальянцы впервые создают танцевальные трактаты,
+                            описывающие правила этикета и фигуры, формирующие основу первых танцевальных школ. Именно
+                            тогда начинают использоваться термины pas de deux (танец вдвоём), solo (солистический номер)
+                            и кордебалет (группа танцующих).</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>XIX век</h3>
+                        <p>Французский король Людовик XIV становится главным покровителем театра и музыки, и именно
+                            Франция занимает лидирующие позиции в формировании европейской танцевальной культуры. Балет
+                            превращается в серьёзное искусство, появляются чётко регламентированные движения и положения
+                            рук и ног. В этот период формируется классический балет, создаются знаменитые постановки
+                            типа "Короля-Солнца" Жана-Батиста Люлли и Жан-Жоржа Новера. Народные танцы продолжают
+                            развиваться параллельно, становясь основой будущих популярных бальных танцев XIX века.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>XX век</h3>
+                        <p>Вторая половина XX века характеризуется смешением различных художественных течений и
+                            возникновением новых тенденций. Джазовый танец разделяется на джаз-модерн и
+                            джаз-контемпорари, сохраняя влияние как европейского балета, так и афроамериканской
+                            культуры. Рок-н-ролл и буги-вуги превращают молодёжь в активных поклонников массовых
+                            танцевальных веяний. В конце 70-х годов зарождается феномен хип-хопа, включающего в себя
+                            брейкданс, поппинг и локинг. Этот жанр приобретает всемирную популярность, особенно после
+                            распространения видеоклипов MTV.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>XXI век</h3>
+                        <p>Современный мир стал свидетелем глобальной интеграции культур и искусств. Интернет позволил
+                            распространять информацию мгновенно, что способствует быстрому проникновению танцевальных
+                            новинок в самые отдалённые уголки планеты. Сегодня популярны смешанные стили: контемпорари
+                            объединяет черты классического балета, модерна и джаза, а уличные танцы развиваются в
+                            направлении виртуозности и зрелищности. Появились совершенно новые жанры, такие как
+                            крампинг, вакинг и многие другие. Современный театр ставит эксперименты, внедряя цифровые
+                            технологии, создающие интерактивные и мультимедийные постановки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Направления -->
+    <section id="styles" class="styles">
+        <div class="container">
+            <h2>Танцевальные направления</h2>
+
+            <div class="styles-grid">
+                <div class="style-card">
+                    <img src="image/с.jpg" alt="Хип-хоп">
+                    <div class="style-card-content">
+                        <h3>Хип-хоп</h3>
+                        <p>Энергичный и динамичный уличный танец, который появился в Нью-Йорке в 1970-х годах. Его
+                            родоначальниками стали представители афроамериканской и латинской общин, стремящиеся
+                            выразить собственную идентичность и протест против социальной несправедливости через музыку
+                            и танец. Сегодня хип-хоп стал одной из главных составляющих мировой танцевальной культуры.
+                        </p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <img src="image/c1.jpg" alt="Современные танцы">
+                    <div class="style-card-content">
+                        <h3>Современные танцы</h3>
+                        <p>Представляют собой широкий спектр направлений, включающих элементы классической хореографии,
+                            постмодернизма и импровизации. Зародившись в начале XX века усилиями Айседоры Дункан и Марты
+                            Грэм, современная хореография бросила вызов традиционным правилам балетного искусства,
+                            подчёркивая важность внутреннего переживания и свободы движений.</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <img src="image/c2.jpg" alt="Сальса">
+                    <div class="style-card-content">
+                        <h3>Сальса</h3>
+                        <p>Страстный латиноамериканский танец, который учит чувству ритма и партнерскому взаимодействию.
+                            Отлично подходит для социализации. Страстный и чувственный латиноамериканский танец, берущий
+                            начало в Кубе и Пуэрто-Рико. Этот социальный танец отличается ярким характером и
+                            экспрессивностью. Он сочетает в себе элементы афро-кубинских и испанских музыкальных
+                            традиций.</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <img src="image/c3.jpg" alt="Бальные танцы">
+                    <div class="style-card-content">
+                        <h3>Бальные танцы</h3>
+                        <p>Представляют собой совокупность классических парных танцев, восходящих к XVI веку.
+                            Первоначально возникнув как элемент светских развлечений, они превратились в официальную
+                            дисциплину, признанную Международным союзом танцевального спорта.</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <img src="image/c4.jpg" alt="Джаз-фанк">
+                    <div class="style-card-content">
+                        <h3>Джаз-фанк</h3>
+                        <p>Яркое и современное танцевальное направление, объединяющее элементы хип-хопа, джазовой
+                            хореографии и вакинга. Название стиля возникло в Лос-Анджелесе в середине 80-х годов
+                            прошлого века и быстро приобрело международную известность благодаря фильмам и телевизионным
+                            проектам.</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <img src="image/c5.jpg" alt="Брейк-данс">
+                    <div class="style-card-content">
+                        <h3>Брейк-данс</h3>
+                        <p>Экстремальный уличный танец, получивший массовую популярность в 1980-х годах благодаря
+                            голливудским фильмам и телешоу. Родиной брейкинга считается Южный Бронкс, район Нью-Йорка,
+                            населённый выходцами из беднейших слоёв населения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LacGest</h3>
+                    <p>Профессиональная танцевальная студия для всех возрастов и уровней подготовки.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 LacGest. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script>
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Анимация при скролле
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = '#222';
+            } else {
+                header.style.background = 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))';
+            }
+        });
+
+        // Загрузка Font Awesome для иконок
+        const faScript = document.createElement('script');
+        faScript.src = 'https://kit.fontawesome.com/a076d05399.js';
+        faScript.crossOrigin = 'anonymous';
+        document.head.appendChild(faScript);
+    </script>
+</body>
+
+</html>
